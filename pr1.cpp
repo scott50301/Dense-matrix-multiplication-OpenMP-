@@ -10,9 +10,9 @@ long long C[NN][NN];
 void solve(int n1, int n2, int n3, int num_thread)
 {
 	int i, j, t, k;
-	double paralleltime, serialtime;
+	//double paralleltime, serialtime;
 	struct timespec start, end;
-	clock_t startTime, endTime;
+	//clock_t startTime, endTime;
 	long long sum;
 
 	omp_set_num_threads(num_thread);
@@ -43,7 +43,7 @@ void solve(int n1, int n2, int n3, int num_thread)
 	}
 
 	//----------------parallel------------------
-	startTime = clock();
+	//startTime = clock();
 	clock_gettime(CLOCK_MONOTONIC, &start);
 	sum = 0;
 #pragma omp parallel shared(A,B,C) private(i,j,k)
@@ -72,13 +72,14 @@ void solve(int n1, int n2, int n3, int num_thread)
 		end.tv_nsec += 1000000000;
 	}
 	printf("%lld.%09ld seconds\n", (long long)end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
-	endTime = clock();
+	//endTime = clock();
 
-	paralleltime = endTime - startTime;
+	//paralleltime = endTime - startTime;
 
-	printf("sum=%lld time=%.4fms  Threads = %d\n", sum, paralleltime, num_thread);
+	//printf("sum=%lld time=%.4fms  Threads = %d\n", sum, paralleltime, num_thread);
 	//--------------------------------------------------------
 	//--------------------------------------------------------
+	/*
 	startTime = clock();
 	sum = 0;
 	for (i = 0; i < n1; i++)
@@ -98,6 +99,7 @@ void solve(int n1, int n2, int n3, int num_thread)
 	serialtime = endTime - startTime;
 	printf("C elements sum=%lld time=%dms\n", sum, serialtime);
 	printf("speedUp： %d/%d\n", serialtime, paralleltime);
+	*/
 	//----------------------------------------------------
 }
 
