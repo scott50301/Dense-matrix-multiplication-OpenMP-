@@ -61,10 +61,12 @@ void solve(int n1, int n2, int n3, int num_thread)
 			}
 		}
 	}
-
+	/*
 	for (i = 0; i < n1; i++)
 		for (j = 0; j < n3; j++)
 			sum += C[i][j];
+	*/
+	
 	clock_gettime(CLOCK_MONOTONIC, &end);
 
 	if (end.tv_nsec < start.tv_nsec) {
@@ -124,7 +126,7 @@ int main(int argc, char* argv[])
 	n2 = 2000;
 	n3 = 5000;
 	num_thread = 5;
-	printf("%d\n", argc);
+	printf("%d   %d   %d    %d\n", n1, n2, n3, num_thread);
 	if (argc >= 4) {
 		n1 = atoi(argv[1]);
 		n2 = atoi(argv[2]);
