@@ -11,6 +11,7 @@ void solve(int n1, int n2, int n3, int num_thread)
 {
 	int i, j, t, k;
 	double paralleltime, serialtime;
+	struct timespec start, end;
 	clock_t startTime, endTime;
 	long long sum;
 
@@ -18,7 +19,6 @@ void solve(int n1, int n2, int n3, int num_thread)
 	//--------------init matrix A and B------------
 	for (i = 0; i < n1; i++)
 	{
-		
 		for (j = 0; j < n2; j++)
 		{
 			A[i][j] = (float)rand() / (RAND_MAX);
@@ -44,6 +44,7 @@ void solve(int n1, int n2, int n3, int num_thread)
 
 	//----------------parallel------------------
 	startTime = clock();
+	clock_gettime(CLOCK_MONOTONIC, &start);
 	sum = 0;
 #pragma omp parallel shared(A,B,C) private(i,j,k)
 	{
@@ -64,7 +65,13 @@ void solve(int n1, int n2, int n3, int num_thread)
 	for (i = 0; i < n1; i++)
 		for (j = 0; j < n3; j++)
 			sum += C[i][j];
+	clock_gettime(CLOCK_MONOTONIC, &end);
 
+	if (end.tv_nsec < start.tv_nsec) {
+		end.tv_sec -= 1;
+		end.tv_nsec += 1000000000;
+	}
+	printf("%lld.%09ld seconds\n", (long long)end.tv_sec - start.tv_sec, end.tv_nsec - start.tv_nsec);
 	endTime = clock();
 
 	paralleltime = endTime - startTime;
@@ -78,7 +85,6 @@ void solve(int n1, int n2, int n3, int num_thread)
 	{
 		for (j = 0; j < n3; j++)
 		{
-			C[i][j] = 0;
 			for (k = 0; k < n2; k++)
 			{
 				C[i][j] += A[i][k] * B[k][j];
@@ -113,8 +119,8 @@ int main(int argc, char* argv[])
 	}
 	*/
 	n1 = 1000;
-	n2 = 1000;
-	n3 = 1000;
+	n2 = 2000;
+	n3 = 5000;
 	num_thread = 5;
 	printf("%d\n", argc);
 	if (argc >= 4) {
