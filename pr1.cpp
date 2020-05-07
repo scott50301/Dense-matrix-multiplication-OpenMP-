@@ -124,7 +124,6 @@ int main(int argc, char* argv[])
 		num_thread = atoi(argv[4]);
 	}
 
-	num_thread = (int)argv[4];
 	solve(n1, n2, n3, num_thread);
 	return 0;
 }
