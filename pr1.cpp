@@ -1,7 +1,6 @@
 ﻿#include <omp.h>
 #include <stdio.h>
 #include <time.h>
-#include <chrono>
 #define NN 10000
 
 int A[NN][NN], B[NN][NN];
@@ -44,7 +43,6 @@ void solve(int n1, int n2, int n3, int num_thread)
 
 	//----------------parallel------------------
 	startTime = clock();
-	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	sum = 0;
 #pragma omp parallel shared(A,B,C) private(i,j,k)
 	{
@@ -67,7 +65,6 @@ void solve(int n1, int n2, int n3, int num_thread)
 			sum += C[i][j];
 
 	endTime = clock();
-	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 
 	paralleltime = endTime - startTime;
 
