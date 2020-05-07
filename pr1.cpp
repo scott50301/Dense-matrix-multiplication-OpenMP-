@@ -4,7 +4,7 @@
 #include <cstdlib>
 #define NN 10000
 
-int A[NN][NN], B[NN][NN];
+float A[NN][NN], B[NN][NN];
 long long C[NN][NN];
 
 void solve(int n1, int n2, int n3, int num_thread)
@@ -18,10 +18,10 @@ void solve(int n1, int n2, int n3, int num_thread)
 	//--------------init matrix A and B------------
 	for (i = 0; i < n1; i++)
 	{
-		t = i + 1;
+		
 		for (j = 0; j < n2; j++)
 		{
-			A[i][j] = t++;
+			A[i][j] = (float)rand() / (RAND_MAX);
 
 		}
 	}
@@ -47,7 +47,7 @@ void solve(int n1, int n2, int n3, int num_thread)
 	sum = 0;
 #pragma omp parallel shared(A,B,C) private(i,j,k)
 	{
-#pragma omp for //schedule(dynamic)
+#pragma omp for //schedule(static, num_thread)
 		for (i = 0; i < n1; i++)
 		{
 			for (j = 0; j < n3; j++)
