@@ -1,6 +1,7 @@
 ﻿#include <omp.h>
 #include <stdio.h>
 #include <time.h>
+#include <cstdlib>
 #define NN 10000
 
 int A[NN][NN], B[NN][NN];
@@ -117,10 +118,10 @@ int main(int argc, char* argv[])
 	num_thread = 5;
 	printf("%d\n", argc);
 	if (argc >= 4) {
-		n1 = (int)argv[1];
-		n2 = (int)argv[2];
-		n3 = (int)argv[3];
-		num_thread = (int)argv[4];
+		n1 = atoi(argv[1]);
+		n2 = atoi(argv[2]);
+		n3 = atoi(argv[3]);
+		num_thread = atoi(argv[4]);
 	}
 
 	num_thread = (int)argv[4];
