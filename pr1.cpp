@@ -126,14 +126,16 @@ int main(int argc, char* argv[])
 	n2 = 2000;
 	n3 = 5000;
 	num_thread = 5;
-	printf("%d   %d   %d    %d\n", n1, n2, n3, num_thread);
+
 	if (argc >= 4) {
 		n1 = atoi(argv[1]);
 		n2 = atoi(argv[2]);
 		n3 = atoi(argv[3]);
 		num_thread = atoi(argv[4]);
 	}
-
+	printf("***********");
+	printf("%d   %d   %d    %d", n1, n2, n3, num_thread);
+	printf("***********\n");
 	solve(n1, n2, n3, num_thread);
 	return 0;
 }
